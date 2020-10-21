@@ -34,10 +34,10 @@
       <div v-html="product.description" class="detail-description"></div>
       <div class="cart-area">
         <div class="dropdown">
-          <button class="quantity-selector">
+          <button @click="toggleQuan" class="quantity-selector">
             <span class="current-quantity">{{ quantity }}</span>
-            <Icon v-if="dropdownOpen" @click="toggleQuan" name="up"></Icon>
-            <Icon v-else @click="toggleQuan" name="down"></Icon>
+            <Icon v-if="dropdownOpen" name="up"></Icon>
+            <Icon v-else name="down"></Icon>
           </button>
           <div v-if="dropdownOpen" class="dropdown-content">
             <div @click="changeQuan(1)"><span class="quan-num">1</span></div>
@@ -50,11 +50,11 @@
         <button id="add-to-cart">Add to Cart</button>
       </div>
       <hr />
-      <div onClick="{this.toggleSpecs}" class="specs-box">
+      <div @click="toggleSpecs" class="specs-box">
         <div class="specs-header">
           <p class="specs">SPECS</p>
-          <Icon v-if="showSpecs" @click="toggleSpecs" name="up"></Icon>
-          <Icon v-else @click="toggleSpecs" name="down"></Icon>
+          <Icon v-if="showSpecs" name="up"></Icon>
+          <Icon v-else name="down"></Icon>
         </div>
         <div
           v-if="showSpecs"

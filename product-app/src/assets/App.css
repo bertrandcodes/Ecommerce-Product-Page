@@ -546,6 +546,10 @@ hr {
   width: 327px;
 }
 
+.specs-box {
+  cursor: pointer;
+}
+
 .specs-header {
   position: relative;
   display: flex;

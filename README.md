@@ -1,7 +1,7 @@
 # Ecommerce Product Page
 ----------------------------------
 
-### Live Site:
+### Live Site
 https://5f8fed78065839b7de9f4085--vuebox.netlify.app/
 
 ### Goal

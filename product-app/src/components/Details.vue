@@ -1,5 +1,41 @@
 <template>
-  <div v-if="!show" class="modal"></div>
+  <div v-if="!show" class="modal">
+    <div class="detail-image-container">
+      <img
+        class="detail-image"
+        :src="product.previewImage"
+        :alt="product.title"
+      />
+      <div @click="toggleHeart" class="heart-div"></div>
+      <Icon v-if="getFavorite" name="filled" class="filled"></Icon>
+      <Icon v-else name="unfilled" class="unfilled"></Icon>
+      <div @click="closeModal" class="cancel-div"></div>
+      <Icon name="cancel" class="cancel"> </Icon>
+    </div>
+    <div class="detail-body">
+      <div class="detail-tags">
+        <div
+          v-for="tag in product.tags"
+          :key="tag[0]"
+          class="detail-tag"
+          :class="getColor"
+        >
+          {{ tag.toUpperCase() }}
+        </div>
+      </div>
+      <div class="detail-brand">{{ product.brand.toUpperCase() }}</div>
+      <div class="detail-title">{{ product.title }}</div>
+      <div class="detail-prices">
+        <div class="detail-sale">
+          {{ currentPrice }}
+        </div>
+        <div class="detail-original">{{ retailValue }}</div>
+        <div class="detail-deal">{{ percentOff }}</div>
+      </div>
+      <div v-html="product.description" class="detail-description"></div>
+    </div>
+  </div>
+
   <div v-else class="modal open">
     <div class="detail-image-container">
       <img
@@ -7,7 +43,9 @@
         :src="product.previewImage"
         :alt="product.title"
       />
-      <Icon name="unfilled" class="unfilled"></Icon>
+      <div @click="toggleHeart" class="heart-div"></div>
+      <Icon v-if="getFavorite" name="filled" class="filled"></Icon>
+      <Icon v-else name="unfilled" class="unfilled"></Icon>
       <div @click="closeModal" class="cancel-div"></div>
       <Icon name="cancel" class="cancel"> </Icon>
     </div>
@@ -73,13 +111,14 @@ import Icon from "./Icon.vue";
 
 export default {
   name: "details-page",
-  props: ["product", "show"],
+  props: ["product", "products", "show", "favorites"],
   components: { Icon },
   data() {
     return {
       quantity: 1,
       dropdownOpen: false,
       showSpecs: true,
+      favorited: false,
     };
   },
   methods: {
@@ -100,6 +139,10 @@ export default {
       this.$emit("add-to-cart", this.quantity);
       this.quantity = 1;
       this.dropdownOpen = false;
+    },
+    toggleHeart() {
+      this.$emit("adjust-favorites", this.product.id);
+      this.favorited = !this.favorited;
     },
   },
   computed: {
@@ -124,6 +167,11 @@ export default {
           this.product.retailValue) *
           100
       )}% off`;
+    },
+    getFavorite() {
+      return this.products[
+        this.products.findIndex((ele) => ele.id === this.product.id)
+      ].favorite;
     },
   },
 };

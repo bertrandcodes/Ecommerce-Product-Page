@@ -361,7 +361,6 @@ table {
   position: absolute;
   top: 25px;
   right: 80px;
-  cursor: pointer;
 }
 
 .detail-image-container .unfilled:hover {
@@ -379,11 +378,20 @@ table {
   cursor: pointer;
 }
 
+.detail-image-container .heart-div {
+  position: absolute;
+  z-index: 1;
+  height: 30px;
+  width: 30px;
+  top: 25px;
+  right: 80px;
+  cursor: pointer;
+}
+
 .detail-image-container .cancel {
   position: absolute;
   top: 19px;
   right: 25px;
-  cursor: pointer;
 }
 
 .detail-image-container .cancel-div {

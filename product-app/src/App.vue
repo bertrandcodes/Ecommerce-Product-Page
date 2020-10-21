@@ -2,10 +2,13 @@
   <main id="app">
     <section class="app-wrap">
       <Details
+        :products="products"
         :product="selectedProduct"
         :show="isModalVisible"
+        :favorites="favorites"
         @close-modal="hideModal"
         @add-to-cart="updateCart"
+        @adjust-favorites="adjustFavorites"
       />
       <div class="app-header">
         <div class="logo" />
@@ -21,6 +24,7 @@
           v-for="product in products"
           :key="product.id"
           :product="product"
+          :favorites="favorites"
           @open-modal="showModal"
         />
       </div>
@@ -44,6 +48,7 @@ export default {
       selectedProduct: productData.products[0],
       cart: 0,
       isModalVisible: false,
+      favorites: new Set(),
     };
   },
   methods: {
@@ -57,6 +62,18 @@ export default {
     updateCart(quan) {
       this.cart += quan;
       this.isModalVisible = false;
+    },
+    adjustFavorites(id) {
+      const index = this.products.findIndex((ele) => ele.id === id);
+      if (this.products[index].favorite) {
+        let newData = [...this.products];
+        newData[index] = { ...newData[index], favorite: false };
+        this.products = newData;
+      } else {
+        let newData = [...this.products];
+        newData[index] = { ...newData[index], favorite: true };
+        this.products = newData;
+      }
     },
   },
 };

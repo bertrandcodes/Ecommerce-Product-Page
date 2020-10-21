@@ -6,7 +6,8 @@
         :src="product.previewImage"
         :alt="product.title"
       />
-      <Icon name="unfilled"></Icon>
+      <Icon v-if="product.favorite" name="filled"></Icon>
+      <Icon v-else name="unfilled"></Icon>
       <div
         v-if="product.tags.length > 0"
         class="collection-tag"
@@ -30,7 +31,7 @@ import Icon from "./Icon.vue";
 
 export default {
   name: "product",
-  props: ["product"],
+  props: ["product", "favorites"],
   components: { Icon },
   methods: {
     openModal() {

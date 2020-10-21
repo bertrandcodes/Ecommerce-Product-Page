@@ -47,7 +47,7 @@
             <div @click="changeQuan(5)"><span class="quan-num">5</span></div>
           </div>
         </div>
-        <button id="add-to-cart">Add to Cart</button>
+        <button @click="addToCart" id="add-to-cart">Add to Cart</button>
       </div>
       <hr />
       <div @click="toggleSpecs" class="specs-box">
@@ -95,6 +95,11 @@ export default {
     },
     toggleSpecs() {
       this.showSpecs = !this.showSpecs;
+    },
+    addToCart() {
+      this.$emit("add-to-cart", this.quantity);
+      this.quantity = 1;
+      this.dropdownOpen = false;
     },
   },
   computed: {

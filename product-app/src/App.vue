@@ -5,6 +5,7 @@
         :product="selectedProduct"
         :show="isModalVisible"
         @close-modal="hideModal"
+        @add-to-cart="updateCart"
       />
       <div class="app-header">
         <div class="logo" />
@@ -51,6 +52,10 @@ export default {
       this.isModalVisible = true;
     },
     hideModal() {
+      this.isModalVisible = false;
+    },
+    updateCart(quan) {
+      this.cart += quan;
       this.isModalVisible = false;
     },
   },

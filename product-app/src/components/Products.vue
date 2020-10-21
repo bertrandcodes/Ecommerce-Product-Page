@@ -1,6 +1,6 @@
 <template>
   <div :key="product.id" class="collection-item">
-    <div class="collection-image-container">
+    <div v-on:click="openModal" class="collection-image-container">
       <img
         class="collection-image"
         :src="product.previewImage"
@@ -32,7 +32,11 @@ export default {
   name: "product",
   props: ["product"],
   components: { Icon },
-  method: {},
+  methods: {
+    openModal() {
+      this.$emit("open-modal", this.product);
+    },
+  },
   computed: {
     getColor() {
       const firstTag = this.product.tags[0];

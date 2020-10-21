@@ -139,6 +139,7 @@ export default {
       this.$emit("add-to-cart", this.quantity);
       this.quantity = 1;
       this.dropdownOpen = false;
+      this.$vToastify.success("Product added!");
     },
     toggleHeart() {
       this.$emit("adjust-favorites", this.product.id);

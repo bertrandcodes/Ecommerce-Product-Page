@@ -8,7 +8,7 @@
         :alt="product.title"
       />
       <Icon name="unfilled" class="unfilled"></Icon>
-      <div v-on:click="closeModal" class="cancel-div"></div>
+      <div @click="closeModal" class="cancel-button"></div>
       <Icon name="cancel" class="cancel"> </Icon>
     </div>
     <div class="detail-body">
@@ -31,22 +31,21 @@
         <div class="detail-original">{{ retailValue }}</div>
         <div class="detail-deal">{{ percentOff }}</div>
       </div>
-      <div class="detail-description">
-        <!-- <Markup content={description} /> -->
-      </div>
+      <div v-html="product.description" class="detail-description"></div>
       <div class="cart-area">
         <div class="dropdown">
-          <button onClick="{this.toggleQuan}" class="quantity-selector">
-            <span class="current-quantity">{this.state.quantity}</span>
-            <Icon name="up"></Icon>
+          <button class="quantity-selector">
+            <span class="current-quantity">{{ quantity }}</span>
+            <Icon v-if="dropdownOpen" @click="toggleQuan" name="up"></Icon>
+            <Icon v-else @click="toggleQuan" name="down"></Icon>
           </button>
-          <!-- {this.state.quanShow ? <div class="dropdown-content">
-                            <div onClick={() => this.changeQuan(1)}><span class="quan-num">1</span></div>
-                            <div onClick={() => this.changeQuan(2)}><span class="quan-num">2</span></div>
-                            <div onClick={() => this.changeQuan(3)}><span class="quan-num">3</span></div>
-                            <div onClick={() => this.changeQuan(4)}><span class="quan-num">4</span></div>
-                            <div onClick={() => this.changeQuan(5)}><span class="quan-num">5</span></div>
-                        </div> : null} -->
+          <div v-if="dropdownOpen" class="dropdown-content">
+            <div @click="changeQuan(1)"><span class="quan-num">1</span></div>
+            <div @click="changeQuan(2)"><span class="quan-num">2</span></div>
+            <div @click="changeQuan(3)"><span class="quan-num">3</span></div>
+            <div @click="changeQuan(4)"><span class="quan-num">4</span></div>
+            <div @click="changeQuan(5)"><span class="quan-num">5</span></div>
+          </div>
         </div>
         <button id="add-to-cart">Add to Cart</button>
       </div>
@@ -54,12 +53,15 @@
       <div onClick="{this.toggleSpecs}" class="specs-box">
         <div class="specs-header">
           <p class="specs">SPECS</p>
-          <Icon name="up"></Icon>
+          <Icon v-if="showSpecs" @click="toggleSpecs" name="up"></Icon>
+          <Icon v-else @click="toggleSpecs" name="down"></Icon>
         </div>
-        <!-- {this.state.specsShow ?
-                        <div class="detail-specs open">
-                            <Markup content={specs} />
-                        </div> : <div class="detail-specs"><Markup content={specs} /></div>} -->
+        <div
+          v-if="showSpecs"
+          v-html="product.specs"
+          class="detail-specs open"
+        />
+        <div v-else v-html="product.specs" class="detail-specs" />
       </div>
       <hr />
     </div>
@@ -70,12 +72,30 @@
 import Icon from "./Icon.vue";
 
 export default {
-  name: "details",
+  name: "details-page",
   props: ["product", "show"],
   components: { Icon },
+  data() {
+    return {
+      quantity: 1,
+      dropdownOpen: false,
+      showSpecs: true,
+    };
+  },
   methods: {
     closeModal() {
       this.$emit("close-modal");
+      console.log("cancel successfully clicked");
+    },
+    changeQuan(quan) {
+      this.quantity = quan;
+      this.dropdownOpen = false;
+    },
+    toggleQuan() {
+      this.dropdownOpen = !this.dropdownOpen;
+    },
+    toggleSpecs() {
+      this.showSpecs = !this.showSpecs;
     },
   },
   computed: {

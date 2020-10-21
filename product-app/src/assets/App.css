@@ -242,6 +242,16 @@ table {
   position: absolute;
   top: 8px;
   right: 8px;
+  /* cursor: pointer; */
+}
+
+.cancel-button {
+  position: absolute;
+  z-index: 1;
+  top: 8px;
+  right: 8px;
+  height: 30px;
+  width: 30px;
   cursor: pointer;
 }
 

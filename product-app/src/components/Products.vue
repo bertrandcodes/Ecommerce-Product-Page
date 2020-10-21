@@ -1,6 +1,6 @@
 <template>
   <div :key="product.id" class="collection-item">
-    <div v-on:click="openModal" class="collection-image-container">
+    <div @click="openModal" class="collection-image-container">
       <img
         class="collection-image"
         :src="product.previewImage"

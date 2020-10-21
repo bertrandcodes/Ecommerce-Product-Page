@@ -5,8 +5,8 @@
         <div class="logo" />
         <div class="cart-container">
           <Icon name="cart"></Icon>
-          <div class="cart-total">
-            <div class="cart-num">1</div>
+          <div v-if="cart > 1" class="cart-total">
+            <div class="cart-num">{{ cart }}</div>
           </div>
         </div>
       </div>
@@ -33,6 +33,7 @@ export default {
   data() {
     return {
       products: productData.products,
+      cart: 0,
     };
   },
 };

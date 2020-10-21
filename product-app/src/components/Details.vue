@@ -8,7 +8,7 @@
         :alt="product.title"
       />
       <Icon name="unfilled" class="unfilled"></Icon>
-      <div @click="closeModal" class="cancel-button"></div>
+      <div @click="closeModal" class="cancel-div"></div>
       <Icon name="cancel" class="cancel"> </Icon>
     </div>
     <div class="detail-body">
@@ -85,7 +85,6 @@ export default {
   methods: {
     closeModal() {
       this.$emit("close-modal");
-      console.log("cancel successfully clicked");
     },
     changeQuan(quan) {
       this.quantity = quan;

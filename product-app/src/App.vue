@@ -1,7 +1,11 @@
 <template>
   <main id="app">
     <section class="app-wrap">
-      <Details :product="selectedProduct" :show="isModalVisible" />
+      <Details
+        :product="selectedProduct"
+        :show="isModalVisible"
+        @close-modal="hideModal"
+      />
       <div class="app-header">
         <div class="logo" />
         <div class="cart-container">
@@ -17,7 +21,6 @@
           :key="product.id"
           :product="product"
           @open-modal="showModal"
-          @close-modal="closeModal"
         />
       </div>
     </section>
@@ -47,7 +50,7 @@ export default {
       this.selectedProduct = product;
       this.isModalVisible = true;
     },
-    closeModal() {
+    hideModal() {
       this.isModalVisible = false;
     },
   },
